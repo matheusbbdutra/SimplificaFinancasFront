@@ -1,2 +1,23 @@
-# SimplificaFinancasFront
-Front End do Simplifica Financas
+# Simplifica Finanças front-end
+
+## Project setup
+```
+docker compose up -d --build
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
