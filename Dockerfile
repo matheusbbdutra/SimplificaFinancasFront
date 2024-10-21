@@ -1,14 +1,24 @@
-FROM node:21-alpine
+FROM node:20-alpine
+
+RUN apk add --no-cache shadow
+
+RUN groupadd -g 1001 appgroup && \
+    useradd -u 1001 -g appgroup -m appuser
 
 WORKDIR /app
 
-RUN npm install -g yarn --force
-
 COPY package*.json ./
-RUN yarn install
+
+RUN yarn install --force
 
 COPY . .
 
-EXPOSE 8080
+RUN chown -R appuser:appgroup /app
 
-CMD ["npm", "run", "serve"]
+USER appuser
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+EXPOSE 3000
+
+CMD ["yarn", "dev"]
