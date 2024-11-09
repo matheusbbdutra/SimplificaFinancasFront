@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN yarn install --force
+RUN npm install && npm install -g npm@10.9.0
 
 COPY . .
 
@@ -21,4 +21,4 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 EXPOSE 3000
 
-CMD ["yarn", "dev"]
+CMD ["npm", "run", "dev"]

@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-ui-pro-template-dashboard",
+  "name": "nuxt-app",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,52 +7,30 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.6.0",
-    "@iconify-json/heroicons": "^1.2.0",
-    "@iconify-json/simple-icons": "^1.2.4",
-    "@nuxt/fonts": "^0.9.2",
-    "@nuxt/ui-pro": "^1.4.3",
+    "@mdi/font": "^7.4.47",
     "@primevue/themes": "^4.1.1",
-    "@unovis/ts": "^1.4.4",
-    "@unovis/vue": "^1.4.4",
-    "@vee-validate/zod": "^4.14.3",
-    "@vueuse/core": "^11.1.0",
-    "@vueuse/nuxt": "^11.1.0",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
+    "axios": "^1.7.7",
     "date-fns": "^4.1.0",
-    "h3": "^1.13.0",
-    "lucide-vue-next": "^0.453.0",
+    "lucide-vue-next": "^0.454.0",
     "nuxt": "^3.13.2",
-    "primeicons": "^7.0.0",
-    "primevue": "^4.1.1",
-    "shadcn-nuxt": "^0.10.4",
-    "shadcn-vue": "^0.11.0",
-    "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-primeui": "^0.3.4",
-    "v-calendar": "^3.1.2",
-    "vee-validate": "^4.14.3",
-    "zod": "^3.23.8"
+    "vue": "latest",
+    "vue-router": "latest",
+    "vuex": "^4.0.2",
+    "vuex-module-decorators": "^2.0.0"
   },
   "devDependencies": {
-    "@iconify-json/radix-icons": "^1.2.1",
-    "@iconify/json": "^2.2.261",
-    "@iconify/vue": "^4.1.2",
-    "@nuxt/eslint": "^0.5.7",
+    "@nuxt/types": "^2.18.1",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "@primevue/nuxt-module": "^4.1.1",
     "autoprefixer": "^10.4.20",
-    "eslint": "^9.11.1",
     "postcss": "^8.4.47",
-    "postcss-import": "^16.1.0",
+    "radix-vue": "^1.9.8",
     "tailwindcss": "^3.4.14",
-    "unplugin-icons": "^0.19.3",
-    "unplugin-vue-components": "^0.27.4",
-    "vue-tsc": "^2.1.6"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+    "vite-plugin-vuetify": "^2.0.4",
+    "vuetify": "^3.7.3",
+    "vuetify-nuxt-module": "^0.18.3"
+  }
 }
