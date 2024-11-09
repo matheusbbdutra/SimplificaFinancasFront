@@ -1,45 +1,100 @@
 <template>
-  <v-row align="center" justify="space-between" dense>
-    <v-col
-        v-for="(card, index) in balanceCards"
-        :key="index"
-        cols="12"
-        md="4"
-    >
-      <v-card class="p-8 shadow-md rounded-md bg-surface" elevation="16">
-        <div class="d-flex">
-          <div class="ml-2 d-flex align-center justify-center">
-            <v-icon class="text-3xl">{{ card.icon }}</v-icon>
-          </div>
-          <div class="mb-0 space-y-0">
-            <v-card-title class="text-3xl">{{ card.title }}</v-card-title>
-            <v-card-text class="font-weight-bold">{{ card.value }}</v-card-text>
-            <v-card-subtitle v-if="card.subtitle">{{ card.subtitle }}</v-card-subtitle>
-          </div>
-        </div>
-      </v-card>
+  <v-row align="start" justify="space-between" dense>
+    <v-col cols="12" md="8">
+      <v-row align="center" justify="end" dense>
+        <v-col
+            v-for="(card, index) in balanceCards"
+            :key="index"
+            cols="12"
+            md="4"
+        >
+          <v-card class="p-8 shadow-md rounded-md bg-surface" elevation="16" min-height="150px">
+            <div class="d-flex">
+              <div class="ml-2 d-flex align-center justify-center">
+                <v-icon class="text-3xl">{{ card.icon }}</v-icon>
+              </div>
+              <div class="mb-0 space-y-0">
+                <v-card-title class="text-3xl mt-2">{{ card.title }}</v-card-title>
+                <v-card-text class="font-weight-bold">{{ card.value }}</v-card-text>
+                <v-card-subtitle v-if="card.subtitle">{{ card.subtitle }}</v-card-subtitle>
+              </div>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+      
+      <v-row align="center" justify="end" dense class="mt-2">
+        <v-col
+            v-for="(card, index) in financeCards"
+            :key="index"
+            cols="12"
+            md="3"
+        >
+          <v-card class="p-10 shadow-2xl rounded-md bg-surface" elevation="16" min-height="150px">
+            <div class="d-flex">
+              <div class="ml-2 d-flex align-center justify-center">
+                <v-icon class="text-3xl" :color="card.color">{{ card.icon }}</v-icon>
+              </div>
+              <div class="mb-0 space-y-0">
+                <v-card-title class="text-3xl">{{ card.title }}</v-card-title>
+                <v-card-text class="font-weight-bold">{{ card.value }}</v-card-text>
+                <v-card-subtitle v-if="card.subtitle">{{ card.subtitle }}</v-card-subtitle>
+              </div>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+      
+      <v-row>
+        <v-col  md="12">
+          <v-table c>
+            <thead>
+            <tr>
+              <th class="text-left">
+                Descricao
+              </th>
+              <th class="text-left">
+                Categoria
+              </th>
+              <th class="text-left">
+                Subcategoria
+              </th>
+              <th class="text-left">
+                Valor
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                v-for="item in desserts"
+                :key="item.name"
+            >
+              <td>{{ item.name }}</td>
+              <td>{{ item.calories }}</td>
+            </tr>
+            </tbody>
+          </v-table>
+        </v-col>
+      </v-row>
     </v-col>
-  </v-row>
-
-  <v-row align="center" justify="space-between" dense class="mt-2">
-    <v-col
-        v-for="(card, index) in financeCards"
-        :key="index"
-        cols="1"
-        md="3"
-    >
-      <v-card class="p-10 shadow-2xl rounded-md bg-surface" elevation="16">
-        <div class="d-flex">
-          <div class="ml-2 d-flex align-center justify-center">
-            <v-icon class="text-3xl" :color="card.color">{{ card.icon }}</v-icon>
+    
+    <v-col cols="12" md="4">   
+      <div class="mb-2">
+        <v-card class="p-8 shadow-md rounded-md bg-surface" elevation="16">
+          <v-card-title class="text-3xl">Balanço diário</v-card-title>
+          <div class="d-flex flex-column align-center justify-center mt-2 mb-4">
+            <BalancoDiarioLineChart />
           </div>
-          <div class="mb-0 space-y-0">
-            <v-card-title class="text-3xl">{{ card.title }}</v-card-title>
-            <v-card-text class="font-weight-bold">{{ card.value }}</v-card-text>
-            <v-card-subtitle v-if="card.subtitle">{{ card.subtitle }}</v-card-subtitle>
+        </v-card>
+      </div>
+      <div>
+        <v-card class="p-8 shadow-md rounded-md bg-surface" elevation="16" >
+          <v-card-title class="text-3xl">Despesas por categoria</v-card-title>
+          <div class="d-flex flex-column align-center justify-center mt-2 mb-4" >
+            <DespesasDoughnutChart/>
           </div>
-        </div>
-      </v-card>
+        </v-card>
+      </div>
     </v-col>
   </v-row>
 
@@ -73,7 +128,7 @@
       </v-list-item>
     </v-list>
   </v-menu>
-  
+
   <v-dialog v-model="dialog" persistent max-width="600">
     <v-card>
       <div class="d-flex justify-space-between align-center">
@@ -96,6 +151,9 @@ import TransferForm from '~/components/forms/TransferenciaForm.vue';
 import ReceitaForm from '~/components/forms/ReceitaForm.vue';
 import DespesaForm from '~/components/forms/DespesaForm.vue';
 import DespesaCartaoForm from '~/components/forms/DespesaCartaoForm.vue';
+import DespesasDoughnutChart from '~/components/graphics/DespesasDoughnutChart.vue';
+import BalancoDiarioLineChart from '~/components/graphics/BalancoDiarioLineChart.vue';
+
 
 interface MenuItem {
   title: string;
@@ -110,7 +168,9 @@ export default defineComponent({
     TransferForm,
     ReceitaForm,
     DespesaForm,
-    DespesaCartaoForm
+    DespesaCartaoForm,
+    DespesasDoughnutChart,
+    BalancoDiarioLineChart
   },
   setup() {
     const fabMenu = ref(false);
@@ -127,7 +187,7 @@ export default defineComponent({
 
     const openDialog = async (item: MenuItem) => {
       dialog.value = false;
-      await nextTick(); 
+      await nextTick();
 
       currentItem.value = item;
       currentForm.value = item.form;
@@ -136,7 +196,7 @@ export default defineComponent({
 
     const closeForm = async () => {
       dialog.value = false;
-      await nextTick(); 
+      await nextTick();
 
       currentForm.value = null;
       currentItem.value = null;

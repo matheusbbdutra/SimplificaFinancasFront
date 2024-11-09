@@ -2,7 +2,14 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": ["@nuxt/types", "@types/node", "./types/axios.d.ts"],
+    "types": [
+      "@nuxt/types", 
+      "@types/node", 
+      "./types/axios.d.ts", 
+      "@types/chart.js", 
+      "./types/vue-chartjs.d.ts", 
+      "./types/chartjs.d.ts"
+    ],
     "moduleResolution": "node",
     "strict": true,
     "noImplicitAny": true,

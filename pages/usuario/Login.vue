@@ -7,7 +7,7 @@ const email = ref('');
 const password = ref('');
 const visible = ref(false);
 
-const token = useCookie<string | null>('token');
+const token = useCookie<string | null>('token', { maxAge: 3600 });
 
 const { $axios } = useNuxtApp();
 

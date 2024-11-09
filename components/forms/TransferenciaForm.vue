@@ -24,7 +24,8 @@
         v-model="efetivada"
         label="Efetivada"
     ></v-checkbox>
-    
+
+
     <v-select
         v-model="contaOrigem"
         :items="contas"
@@ -32,7 +33,7 @@
         required
         :menu-props="{ closeOnContentClick: false }"
         :return-object="true"
-        item-text="name"
+        item-title="descricao"
         item-value="id"
     ></v-select>
 
@@ -43,9 +44,10 @@
         required
         :menu-props="{ closeOnContentClick: false }"
         :return-object="true"
-        item-text="name"
+        item-title="descricao"
         item-value="id"
     ></v-select>
+
 
     <!-- Botão Salvar -->
     <v-btn color="primary" @click="submitForm">Salvar</v-btn>
@@ -62,13 +64,16 @@ const descricao = ref('');
 const valor = ref('');
 const dataVencimento = ref<Date | null>(null);
 const efetivada = ref(false);
-
 const contaOrigem = ref(null);
 const contaDestino = ref(null);
 const contas = ref([]);
 
 const fetchContas = async () => {
-  contas.value = await $axios.get('/api/contas').then(res => res.data);
+  const response = await $axios.get('/api/financas/listar-contas-modal');
+  contas.value = response.data.map((item: any) => ({
+    id: item.id,
+    descricao: item.descricao
+  }));
 };
 
 const submitForm = () => {
@@ -76,8 +81,6 @@ const submitForm = () => {
 };
 
 onMounted(() => {
-  fetchCategorias();
-  fetchSubcategorias();
   fetchContas();
 });
 </script>

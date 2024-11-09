@@ -29,4 +29,7 @@ export default defineNuxtConfig({
     },
   },
   plugins: ['~/plugins/axios', "~/plugins/vuetify"],
+  devServer: {
+    port: 3001
+  }
 })
