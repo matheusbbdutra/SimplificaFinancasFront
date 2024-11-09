@@ -19,12 +19,12 @@
         class="mt-4"
         formatter="dd-MM-yyyy"
     ></v-date-input>
-    
+
     <v-checkbox
         v-model="efetivada"
         label="Efetivada"
     ></v-checkbox>
-    
+
     <v-select
         v-model="categoria"
         :items="categorias"
@@ -56,7 +56,7 @@
         required
         :menu-props="{ closeOnContentClick: false }"
         :return-object="true"
-        item-text="name"
+        item-title="descricao"
         item-value="id"
     ></v-select>
 
@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import {useNuxtApp} from "#imports";
+import { useNuxtApp } from '#imports';
 
 const { $axios } = useNuxtApp();
 
@@ -83,20 +83,31 @@ const subcategorias = ref([]);
 const contas = ref([]);
 
 const fetchCategorias = async () => {
-  categorias.value = await $axios.get('/api/financas/listar-categoria-modal/2').then(res => res.data);
+  const response = await $axios.get('/api/financas/listar-categoria-modal/2');
+  categorias.value = response.data.map((item: any) => ({
+    id: item.id,
+    name: item.descricao
+  }));
 };
 
 const fetchSubcategorias = async () => {
-  subcategorias.value = await $axios.get('/api/subcategorias').then(res => res.data);
+  const response = await $axios.get('/api/financas/subcategorias');
+  subcategorias.value = response.data.map((item: any) => ({
+    id: item.id,
+    name: item.descricao
+  }));
 };
 
 const fetchContas = async () => {
-  contas.value = await $axios.get('/api/contas').then(res => res.data);
+  const response = await $axios.get('/api/financas/listar-contas-modal');
+  contas.value = response.data.map((item: any) => ({
+    id: item.id,
+    descricao: item.descricao
+  }));
 };
 
-
 const submitForm = () => {
-  
+  // Lógica para submeter o formulário
 };
 
 onMounted(() => {

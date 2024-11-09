@@ -39,7 +39,7 @@ const route = useRoute();
 
 const items = ref(route.path.split('/').filter(Boolean).map((segment, index, array) => {
   return {
-    title: segment,
+    title: segment.charAt(0).toUpperCase() + segment.slice(1),
     disabled: index === array.length - 1,
     href: '/' + array.slice(0, index + 1).join('/')
   };

@@ -56,7 +56,7 @@
         required
         :menu-props="{ closeOnContentClick: false }"
         :return-object="true"
-        item-text="name"
+        item-title="descricao"
         item-value="id"
     ></v-select>
 
@@ -83,15 +83,27 @@ const subcategorias = ref([]);
 const contas = ref([]);
 
 const fetchCategorias = async () => {
-  categorias.value = await fetch('/api/financas/listar-categoria-modal/2').then(res => res.json());
+  const response = await $axios.get('/api/financas/listar-categoria-modal/2');
+  categorias.value = response.data.map((item: any) => ({
+    id: item.id,
+    name: item.descricao
+  }));
 };
 
 const fetchSubcategorias = async () => {
-  subcategorias.value = await fetch('/api/subcategorias').then(res => res.json());
+  const response = await $axios.get('/api/financas/subcategorias');
+  subcategorias.value = response.data.map((item: any) => ({
+    id: item.id,
+    name: item.descricao
+  }));
 };
 
 const fetchContas = async () => {
-  contas.value = await fetch('/api/contas').then(res => res.json());
+  const response = await $axios.get('/api/financas/listar-contas-modal');
+  contas.value = response.data.map((item: any) => ({
+    id: item.id,
+    descricao: item.descricao
+  }));
 };
 
 

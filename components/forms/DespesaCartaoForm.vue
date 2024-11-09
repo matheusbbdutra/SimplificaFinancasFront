@@ -48,7 +48,7 @@
     ></v-select>
 
     <v-select
-        v-model="cartoesCredito"
+        v-model="cartaoCredito"
         :items="cartoesCredito"
         label="Cartão de Crédito"
         required
